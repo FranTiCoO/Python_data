@@ -1,0 +1,48 @@
+import concurrent.futures
+import time
+import signal
+
+# define the loops with different wait times
+def loop1():
+    i = 0
+    while i < 10:
+        print("Loop 1: ", i)
+        i += 1
+        time.sleep(1)
+
+def loop2():
+    j = 0
+    while j < 10:
+        print("Loop 2: ", j)
+        j += 1
+        time.sleep(2)
+
+def loop3():
+    k = 0
+    while k < 10:
+        print("Loop 3: ", k)
+        k += 1
+        time.sleep(3)
+
+# set up the signal handler
+def handle_interrupt(signum, frame):
+    raise KeyboardInterrupt
+
+# create a thread pool with three threads
+with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
+    # submit the functions to the thread pool as daemons
+    future1 = executor.submit(loop1)
+    future2 = executor.submit(loop2)
+    future3 = executor.submit(loop3)
+
+    # set up the signal handler to propagate keyboard interrupts to all threads
+    signal.signal(signal.SIGINT, handle_interrupt)
+
+    # wait for all the futures to complete or until a keyboard interrupt is received
+    try:
+        for future in concurrent.futures.as_completed([future1, future2, future3]):
+            future.result()
+    except KeyboardInterrupt:
+        # cancel all the futures if a keyboard interrupt is received
+        for future in [future1, future2, future3]:
+            future.cancel()
