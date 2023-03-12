@@ -3,6 +3,8 @@ import RPi.GPIO as gpio
 import time
 from datetime import datetime, timedelta
 
+from main import logger
+
 class ControlIO:
 
     def __init__(self):
@@ -53,12 +55,13 @@ class ControlIO:
             end_time = start_time + timedelta(seconds=self.duration_pump_on)
             
             #extract only the time
+            start_time = start_time.time()
             end_time = end_time.time()
             
             if start_time <= current_time <= end_time:
                 final_power_state = gpio.HIGH
-                #print("Pump ON")
-        
+                #logger.debug("Pump ON")
+        logger.debug(final_power_state)
         gpio.output(self.pin_pump_toggle, final_power_state)
 
             
@@ -69,11 +72,11 @@ class ControlIO:
         
         if self.day_time <= current_time <= self.night_time:
             gpio.output(self.pin_light_mode, gpio.LOW)
-            #print("Day Time")
+            #logger.debug("Day Time")
             
         else:
             gpio.output(self.pin_light_mode, gpio.HIGH)
-            #print("Night Time")
+            #logger.debug("Night Time")
     
     #light ON/OFF
     def light_toggle(self, state):
@@ -86,6 +89,5 @@ class ControlIO:
         pwm = gpio.PWM(self.pin_temperature_pwm, self.pwm_frequency)
         pwm.start(0)        
         pwm.ChangeDutyCycle(pwm_value)
-        print(f'PWM Value: {pwm_value}%')
-        #print(f'PWM Output: {gpio.input(self.pin_temperature_pwm)}')
+        logger.debug(f'PWM Value: {pwm_value}%')
 

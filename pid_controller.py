@@ -2,6 +2,7 @@ from simple_pid import PID
 from config import *
 from control_io import *
 from writeDB import *
+from main import logger
 
 class PIDController:
 

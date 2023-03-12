@@ -4,6 +4,7 @@ import time
 from config import *
 from writeDB import *
 from pid_controller import *
+from main import logger
 
 class DHT22:
     def __init__(self):
@@ -37,11 +38,11 @@ class DHT22:
             pid = PIDController()
             pid.generate_pwm_output(temperature)
             
-            print(f'Temperature: {temperature}°C')
-            print(f'Humidity: {humidity}%')
+            logger.debug(f'Temperature: {temperature}°C')
+            logger.debug(f'Humidity: {humidity}%')
             
         except RuntimeError as error:
-            #print(error.args[0])
+            #logger.debug(error.args[0])
             
             #on failure retry getting values
             dht22 = DHT22()

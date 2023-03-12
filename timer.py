@@ -1,13 +1,17 @@
 import time
+
 import control_io
 import dht22
 import tsl2561
+
+from main import logger
 
 class TimerTemplate:
 
     def __init__(self, trigger_time):
         self.trigger_time = trigger_time
         self.counter = 0
+        logger.debug("Creating a timer")
 
     def tick(self):
         self.counter += 1

@@ -2,6 +2,7 @@ import smbus
 import time
 from config import *
 from writeDB import *
+from main import logger
 
 class TSL2561:
     def __init__(self):
@@ -49,9 +50,9 @@ class TSL2561:
         #write values to InfluxDB
         self.writer.write_data_attribute(attributes)
         
-        print(f'Full: {full}lum')
-        print(f'Infrared: {infrared}lum')
-        print(f'Visible: {visible}lum')
-        print("------------------------------------")
+        logger.debug(f'Full: {full}lum')
+        logger.debug(f'Infrared: {infrared}lum')
+        logger.debug(f'Visible: {visible}lum')
+        logger.debug("------------------------------------")
 
         
