@@ -1,14 +1,14 @@
 from config import *
 from influxdb_client import InfluxDBClient, Point
 from influxdb_client.client.write_api import ASYNCHRONOUS
-import os
+from credentials import *
 
 class InfluxDBWriter:
     def __init__(self):
-        self.url = os.environ.get('INFLUX_URL')
-        self.token = os.environ.get('INFLUX_TOKEN')
-        self.org = os.environ.get('INFLUX_ORG')
-        self.bucket = os.environ.get('INFLUX_BUCKET')
+        self.url = INFLUX_URL
+        self.token = INFLUX_TOKEN
+        self.org = INFLUX_ORG
+        self.bucket = INFLUX_BUCKET
         self.client = InfluxDBClient(url=self.url, token=self.token)
         self.write_api = self.client.write_api(write_options=ASYNCHRONOUS)
     
