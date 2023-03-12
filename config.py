@@ -6,10 +6,10 @@ ADD_TSL = 0x39
 #frequency for PWM signal in Hz
 PWM_FREQUENCY = 250
 #influxdb variables
-INFLUX_URL = "http://h2970308.stratoserver.net:8086/"
-INFLUX_TOKEN = "OTYI9_-oFQ1Of6fhKp37KIRt-Mo59z83D04H9JmweVPQ6mntGWyAaAlGxmGItNPdVaAPt4OHrFiUp1DgYUTBfg=="
-INFLUX_ORG = "admin"
-INFLUX_BUCKET = "Orchideen_test"
+INFLUX_URL = ""
+INFLUX_TOKEN = ""
+INFLUX_ORG = ""
+INFLUX_BUCKET = ""
 
 #define BCM channel OUT
 PIN_LIGHT_TOGGLE = 18   #light ON/OFF
