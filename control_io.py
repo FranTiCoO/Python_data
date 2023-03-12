@@ -38,38 +38,28 @@ class ControlIO:
         #setting PWM pin to output
         gpio.setup(self.pin_temperature_pwm, gpio.OUT)
         
-        #innitializing PWM
-        self.pwm = gpio.PWM(self.pin_temperature_pwm, self.pwm_frequency)
-        self.pwm.start(0)  
+
 
     
     #Pump ON/OFF
     def pump_toggle(self):
-
-        for pump_time in self.times_pump_on:
+        final_power_state = gpio.LOW
+        
+        for start_time in self.times_pump_on:
             current_time = datetime.now().time()
-            #converting string to time
-            pump_time = datetime.strptime(pump_time, '%H:%M:%S')
-            #set range for pump on
-            min_time = pump_time - timedelta(seconds=self.time_pump_offset)
-            max_time = pump_time + timedelta(seconds=self.time_pump_offset)
-            #extract only the time
-            min_time = min_time.time()
-            max_time = max_time.time()
-
-            print(min_time, current_time, max_time)
             
-            if min_time <= current_time <= max_time:
-                gpio.output(self.pin_pump_toggle, gpio.HIGH)
-                print("Pump ON")
-                pump_status = True
-                return pump_status
-                
-            else: 
-                gpio.output(self.pin_pump_toggle, gpio.LOW)
-                #print("Pump OFF")
-                pump_status = False
-                return pump_status
+            #converting string to time
+            start_time = datetime.strptime(start_time, '%H:%M:%S')
+            end_time = start_time + timedelta(seconds=self.duration_pump_on)
+            
+            #extract only the time
+            end_time = end_time.time()
+            
+            if start_time <= current_time <= end_time:
+                final_power_state = gpio.HIGH
+                #print("Pump ON")
+        
+        gpio.output(self.pin_pump_toggle, final_power_state)
 
             
 
@@ -92,8 +82,10 @@ class ControlIO:
 
     #set PWM signal OUT
     def output_pwm(self, pwm_value):
-        
-        self.pwm.ChangeDutyCycle(pwm_value)
+        #innitializing PWM
+        pwm = gpio.PWM(self.pin_temperature_pwm, self.pwm_frequency)
+        pwm.start(0)        
+        pwm.ChangeDutyCycle(pwm_value)
         print(f'PWM Value: {pwm_value}%')
         #print(f'PWM Output: {gpio.input(self.pin_temperature_pwm)}')
 
