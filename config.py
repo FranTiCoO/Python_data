@@ -1,6 +1,7 @@
 
 #time between the measurements of each sensor in seconds
 SENSOR_WAIT = 10.0
+TICK_TIME = 0.1
 
 #BUS address of TSL2561 sensor
 ADD_TSL = 0x39
@@ -20,7 +21,7 @@ PIN_TEMPERATURE_PWM = 4
 PIN_DHT22 = 17
 
 #times for pump
-TIMES_PUMP_ON = ["7:00:00", "9:00:00", "13:25:00", "21:59:00"]
+TIMES_PUMP_ON = ["7:00:00", "9:00:00", "13:25:00", "17:50:00"]
 TIME_PUMP_OFFSET = 1
 DURATION_PUMP_ON = 5
 

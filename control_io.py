@@ -50,23 +50,28 @@ class ControlIO:
             current_time = datetime.now().time()
             #converting string to time
             pump_time = datetime.strptime(pump_time, '%H:%M:%S')
-            
             #set range for pump on
             min_time = pump_time - timedelta(seconds=self.time_pump_offset)
             max_time = pump_time + timedelta(seconds=self.time_pump_offset)
             #extract only the time
             min_time = min_time.time()
             max_time = max_time.time()
-            #print(current_time)
-            #print(min_time, max_time, self.current_time)
 
+            print(min_time, current_time, max_time)
+            
             if min_time <= current_time <= max_time:
                 gpio.output(self.pin_pump_toggle, gpio.HIGH)
-                #print("Pump ON")
-                time.sleep(self.duration_pump_on)
+                print("Pump ON")
+                pump_status = True
+                return pump_status
+                
             else: 
                 gpio.output(self.pin_pump_toggle, gpio.LOW)
                 #print("Pump OFF")
+                pump_status = False
+                return pump_status
+
+            
 
     #Switch between night and day light
     def light_mode(self):
@@ -75,6 +80,7 @@ class ControlIO:
         if self.day_time <= current_time <= self.night_time:
             gpio.output(self.pin_light_mode, gpio.LOW)
             #print("Day Time")
+            
         else:
             gpio.output(self.pin_light_mode, gpio.HIGH)
             #print("Night Time")
