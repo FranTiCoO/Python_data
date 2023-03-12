@@ -1,15 +1,12 @@
 
 #time between the measurements of each sensor in seconds
 SENSOR_WAIT = 10.0
+
 #BUS address of TSL2561 sensor
 ADD_TSL = 0x39
+
 #frequency for PWM signal in Hz
 PWM_FREQUENCY = 250
-#influxdb variables
-INFLUX_URL = ""
-INFLUX_TOKEN = ""
-INFLUX_ORG = ""
-INFLUX_BUCKET = ""
 
 #define BCM channel OUT
 PIN_LIGHT_TOGGLE = 18   #light ON/OFF

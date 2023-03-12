@@ -62,11 +62,11 @@ class ControlIO:
 
             if min_time <= current_time <= max_time:
                 gpio.output(self.pin_pump_toggle, gpio.HIGH)
-                print("Pump ON")
+                #print("Pump ON")
                 time.sleep(self.duration_pump_on)
             else: 
                 gpio.output(self.pin_pump_toggle, gpio.LOW)
-                print("Pump OFF")
+                #print("Pump OFF")
 
     #Switch between night and day light
     def light_mode(self):
