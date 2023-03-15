@@ -1,5 +1,3 @@
-import time
-
 import control_io
 import dht22
 import tsl2561

@@ -39,10 +39,7 @@ class ControlIO:
         
         #setting PWM pin to output
         gpio.setup(self.pin_temperature_pwm, gpio.OUT)
-        
-
-
-    
+           
     #Pump ON/OFF
     def pump_toggle(self):
         final_power_state = gpio.LOW
@@ -61,10 +58,13 @@ class ControlIO:
             if start_time <= current_time <= end_time:
                 final_power_state = gpio.HIGH
                 #logger.debug("Pump ON")
-        logger.debug(final_power_state)
-        gpio.output(self.pin_pump_toggle, final_power_state)
+        
+        if final_power_state == 1:
+            logger.debug("Pumpe EIN")
+        else:
+            logger.debug("Pumpe AUS")
 
-            
+        gpio.output(self.pin_pump_toggle, final_power_state)
 
     #Switch between night and day light
     def light_mode(self):

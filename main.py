@@ -14,13 +14,15 @@ if __name__ == '__main__':
     timer_light_mode = timer.TimerLightMode(10 * 10)
 
     t_list = [timer_sensor, timer_pump, timer_light_mode]
-    #logger.debug("Oh god i'm debugging")
-    #logger.info("Hello Ertl this is a info message")
-    #logger.warning("I'm a warning")
-    #logger.error("I'm an error oh error")
+
     while True:
         for t in t_list:
             t.tick()
             t.check()
 
         time.sleep(config.TICK_TIME)
+
+#logger.debug("Oh god i'm debugging")
+#logger.info("Hello Ertl this is a info message")
+#logger.warning("I'm a warning")
+#logger.error("I'm an error oh error")
