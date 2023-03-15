@@ -9,7 +9,7 @@ logger = logging.getLogger()
 logging.basicConfig(format='%(asctime)s, %(levelname)-8s [%(filename)s:%(lineno)d]     %(message)s', datefmt='%d-%m-%Y %H:%M:%S', level=logging.DEBUG)
 
 if __name__ == '__main__':
-    server.Server()
+    #server.Server()
     timer_sensor = timer.TimerSensor(config.SENSOR_WAIT * 10)
     timer_pump = timer.TimerPump(1 * 10)
     timer_light_mode = timer.TimerLightMode(10 * 10)
