@@ -1,6 +1,5 @@
 import adafruit_dht
 import board
-import time
 from config import *
 from writeDB import *
 from pid_controller import *
