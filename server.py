@@ -1,6 +1,11 @@
+import asyncio
 import rpyc
+
+import server
+
+from main import logging
+from rpyc.core.protocol import Connection
 from rpyc.utils.server import ThreadedServer
-import time
 
 @rpyc.service
 class Server(rpyc.Service):
@@ -8,6 +13,7 @@ class Server(rpyc.Service):
     @rpyc.exposed
     def write_config(self, data):
         #create a proper dict out of netref
+        logging.debug("Yoyoyoyo")
         data = {key: data[key] for key in data}
         
         with open('config.py', 'r') as f:
@@ -36,7 +42,21 @@ class Server(rpyc.Service):
         print("config.py was modified!")
         return "config.py was modified!"
 
+#async def handle_connection(reader, writer):
+#    data = await reader.read()
+#    connection = Server(Connection(reader, writer))
+#    server = rpyc.utils.server.ThreadedServer(connection, port=0, auto_register=False, protocol_config={'allow_public_attrs': True})
+#    server.start()
 
-print('Listening on port 18711')
-server = ThreadedServer(Server, port=18711, protocol_config={'allow_public_attrs': True})
-server.start()
+def start_server():
+    server = rpyc.utils.server.ThreadedServer(Server, reuse_addr=True,port=18711, protocol_config={'allow_public_attrs': True})
+    logging.debug("start")
+    server.start()
+    logging.debug("started")
+    #server = await asyncio.start_server(handle_connection, '127.0.0.1', 18511)
+    #print('Listening on port 18861')
+    #async with server:
+    #    print(f"Serving on {server.sockets[0].getsockname()}")
+    #    await server.serve_forever()
+
+

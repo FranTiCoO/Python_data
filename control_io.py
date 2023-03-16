@@ -2,6 +2,7 @@ from config import *
 import RPi.GPIO as gpio
 import time
 from datetime import datetime, timedelta
+import logging
 
 from main import logger
 
