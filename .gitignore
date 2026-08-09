@@ -127,8 +127,12 @@ dmypy.json
 credentials.py
 
 # Local TLS artifacts generated at runtime
-ca-cert.pem
-ca-cert.srl
-ca-key.pem
-rpc-cert.pem
-rpc-key.pem
+certs/ca-cert.pem
+certs/ca-cert.srl
+certs/ca-key.pem
+certs/rpc-cert.pem
+certs/rpc-key.pem
+
+# Local project-only helper folders
+tests/
+Schissl/

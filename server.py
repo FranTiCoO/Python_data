@@ -16,10 +16,11 @@ from logger_setup import logger
 
 
 SHARED_SECRET = os.environ.get("RPC_SHARED_SECRET")
-TLS_CERT_PATH = os.environ.get("RPC_TLS_CERT", os.path.join(os.path.dirname(__file__), "rpc-cert.pem"))
-TLS_KEY_PATH = os.environ.get("RPC_TLS_KEY", os.path.join(os.path.dirname(__file__), "rpc-key.pem"))
-TLS_CA_CERT_PATH = os.environ.get("RPC_TLS_CA_CERT", os.path.join(os.path.dirname(__file__), "ca-cert.pem"))
-TLS_CA_KEY_PATH = os.environ.get("RPC_TLS_CA_KEY", os.path.join(os.path.dirname(__file__), "ca-key.pem"))
+TLS_DIR = os.path.join(os.path.dirname(__file__), "certs")
+TLS_CERT_PATH = os.environ.get("RPC_TLS_CERT", os.path.join(TLS_DIR, "rpc-cert.pem"))
+TLS_KEY_PATH = os.environ.get("RPC_TLS_KEY", os.path.join(TLS_DIR, "rpc-key.pem"))
+TLS_CA_CERT_PATH = os.environ.get("RPC_TLS_CA_CERT", os.path.join(TLS_DIR, "ca-cert.pem"))
+TLS_CA_KEY_PATH = os.environ.get("RPC_TLS_CA_KEY", os.path.join(TLS_DIR, "ca-key.pem"))
 
 
 def _ca_cert_is_valid(ca_cert_path):
@@ -43,7 +44,7 @@ def _ca_cert_is_valid(ca_cert_path):
 
 def ensure_tls_material(base_dir=None):
     if base_dir is None:
-        base_dir = os.path.dirname(__file__)
+        base_dir = TLS_DIR
 
     cert_path = os.environ.get("RPC_TLS_CERT") or os.path.join(base_dir, "rpc-cert.pem")
     key_path = os.environ.get("RPC_TLS_KEY") or os.path.join(base_dir, "rpc-key.pem")
