@@ -1,8 +1,8 @@
+import config
 import control_io
 import dht22
 import tsl2561
-
-from main import logger
+from logger_setup import logger
 
 class TimerTemplate:
 
@@ -15,8 +15,9 @@ class TimerTemplate:
         self.counter += 1
 
     def check(self):
+        self.update_timer()
 
-        if self.counter == self.trigger_time:
+        if self.counter >= self.trigger_time:
             self.action()
             self.counter = 0
 
@@ -46,6 +47,9 @@ class TimerSensor(TimerTemplate):
         self.dht22.get_temp_hum()
         self.tsl2561.get_lum()
 
+    def update_timer(self):
+        self.trigger_time = max(1, int(config.SENSOR_WAIT * 10))
+
 class TimerLightMode(TimerTemplate):
 
     def __init__(self, trigger_time):
@@ -55,13 +59,6 @@ class TimerLightMode(TimerTemplate):
     def action(self):
         self.control_io.light_mode()
 
-
-class TimerLightToggle(TimerTemplate):
-
-    def __init__(self, trigger_time):
-        super().__init__(trigger_time)
-        self.control_io = control_io.ControlIO()
-    
-    def action(self):
+    def update_timer(self):
         self.control_io.light_toggle()
 

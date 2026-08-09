@@ -125,3 +125,10 @@ venv.bak/
 dmypy.json
 
 credentials.py
+
+# Local TLS artifacts generated at runtime
+ca-cert.pem
+ca-cert.srl
+ca-key.pem
+rpc-cert.pem
+rpc-key.pem

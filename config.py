@@ -1,6 +1,6 @@
 
 #time between the measurements of each sensor in seconds
-SENSOR_WAIT = 10.0
+SENSOR_WAIT = 60
 TICK_TIME = 0.1
 
 #BUS address of TSL2561 sensor
@@ -21,12 +21,17 @@ PIN_TEMPERATURE_PWM = 4
 PIN_DHT22 = 17
 
 #times for pump
-TIMES_PUMP_ON = ['7:00:12', '9:00:00', '13:25:00', '19:34:00'] 
+TIMES_PUMP_ON = ['7:00:12', '9:00:00', '13:25:00', '19:40:00'] 
 TIME_PUMP_OFFSET = 1
 DURATION_PUMP_ON = 5
+PUMP_TIMER_ON = 0
+PUMP_ON = 1
 
 #timers for light
-TIMES_LIGHT_MODE = {"night": "20:00:00", "day": "7:00:00"}
+TIMES_LIGHT_MODE = {"night": "22:00:00", "day": "20:00:00"}
+
+#switching light
+STATE_LIGHT = 0
 
 #define variables for PID
 KP = 1.0
