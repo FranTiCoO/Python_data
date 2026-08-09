@@ -136,3 +136,6 @@ certs/rpc-key.pem
 # Local project-only helper folders
 tests/
 Schissl/
+
+# Admin-only local documentation
+README_ADMIN.md
