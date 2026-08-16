@@ -12,6 +12,7 @@ class DHT22:
     def __init__(self):
         self.pin_name = f'D{config.PIN_DHT22}'
         self.pin = getattr(board, self.pin_name)
+        self.pid_controller = PIDController()
 
     def get_temp_hum(self):
         dht_device = adafruit_dht.DHT22(self.pin, use_pulseio=False)
@@ -40,8 +41,7 @@ class DHT22:
                     writer = InfluxDBWriter()
                     writer.write_data_attribute(attributes)
 
-                    pid = PIDController()
-                    pid.generate_pwm_output(temperature)
+                    self.pid_controller.generate_pwm_output(temperature)
 
                     logger.debug(f'Temperature: {temperature}°C')
                     logger.debug(f'Humidity: {humidity}%')

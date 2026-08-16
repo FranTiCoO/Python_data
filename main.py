@@ -17,6 +17,7 @@ def thread_main():
 
 
 if __name__ == '__main__':
+    server.require_shared_secret()
     control_io = timer.control_io.ControlIO()
 
     logger.debug("Starting server...")
@@ -27,6 +28,7 @@ if __name__ == '__main__':
     timer_sensor = timer.TimerSensor(config.SENSOR_WAIT * 10)
     timer_pump = timer.TimerPump(1 * 10)
     timer_light_mode = timer.TimerLightMode(10 * 10)
+    server.register_pid_controller(timer_sensor.dht22.pid_controller)
 
     config_path = config.__file__
     config_mtime = os.path.getmtime(config_path)
